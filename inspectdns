@@ -1,0 +1,4 @@
+#!/bin/bash
+site=$1
+foo=$(dig +short NS $site)
+echo ${foo} | awk -v a=$site '{for (i=1; i<=NF; i++) {printf "Trying zone transfer on "; print $i; system("dig @" $i " -t axfr " a ); print "" } }'
